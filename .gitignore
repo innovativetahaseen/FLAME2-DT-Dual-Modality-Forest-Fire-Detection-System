@@ -1,6 +1,10 @@
 backend/venv/
+venv/
 .venv/
 __pycache__/
 *.pyc
+*.pth
 .env
+dataset/
+*.DS_Store
 uploads/
