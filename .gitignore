@@ -1,11 +1,9 @@
-<<<<<<< HEAD
 backend/venv/
+venv/
 .venv/
 __pycache__/
 *.pyc
-.env
-=======
-venv/
-__pycache__/
 *.pth
->>>>>>> cf697eb (Implemented Forest Fire Detection ML model with training and prediction pipeline using ResNet18)
+.env
+dataset/
+*.DS_Store
