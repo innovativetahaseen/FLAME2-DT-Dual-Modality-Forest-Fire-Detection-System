@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FLAME2 - Forest Fire Detection</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="navbar">
+    <h1>🔥 FLAME2-DT</h1>
+    <p>Dual Modality Forest Fire Detection System</p>
+</header>
+
+<main class="dashboard">
+    <section class="camera-section">
+  <h2>Live UAV Feed</h2>
+
+  <div class="video-box">
+
+      <input type="file" id="rgbInput" accept="image/*">
+      <br><br>
+
+      <input type="file" id="thermalInput" accept="image/*">
+      <br><br>
+
+      <button onclick="sendToBackend()">Detect Fire</button>
+
+  </div>
+
+</section>
+
+    
+    <section class="status-section">
+    <h2>Detection Status</h2>
+
+    <div class="status-card safe">
+        ✅ No Fire Detected
+    </div>
+
+    <div class="status-card alert">
+        🔴 Fire Detected!
+    </div>
+
+    <div class="risk-meter">
+        <div class="circle">
+            <span id="probability">45%</span>
+        </div>
+        <p>Fire Probability</p>
+    </div>
+
+</section>
+
+    
+
+    <section class="info-section">
+        <h2>System Information</h2>
+        <ul>
+            <li>Model: Dual-Modality CNN</li>
+            <li>Input: RGB + Thermal</li>
+            <li>Status: Real-time Monitoring</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 FLAME2 Project | Forest Monitoring System</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
