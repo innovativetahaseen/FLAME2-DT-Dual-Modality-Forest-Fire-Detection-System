@@ -13,19 +13,27 @@ async function sendToBackend() {
     formData.append("thermal_image", thermalFile);
 
     try {
-        const response = await fetch("http://localhost:5000/api/detect", {
+        // ✅ SAME ORIGIN REQUEST
+        const response = await fetch("/api/detect", {
             method: "POST",
             body: formData
         });
+
+        if (!response.ok) {
+            throw new Error("Request failed");
+        }
 
         const data = await response.json();
 
         updateUI(data);
 
     } catch (error) {
+        console.error(error);
         alert("Server Error");
     }
 }
+
+
 function updateUI(data) {
 
     const safeCard = document.querySelector(".status-card.safe");

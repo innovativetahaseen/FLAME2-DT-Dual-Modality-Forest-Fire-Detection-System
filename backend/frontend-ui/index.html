@@ -13,45 +13,39 @@
 </header>
 
 <main class="dashboard">
+
     <section class="camera-section">
-  <h2>Live UAV Feed</h2>
+        <h2>Live UAV Feed</h2>
 
-  <div class="video-box">
+        <div class="video-box">
+            <input type="file" id="rgbInput" accept="image/*">
+            <br><br>
 
-      <input type="file" id="rgbInput" accept="image/*">
-      <br><br>
+            <input type="file" id="thermalInput" accept="image/*">
+            <br><br>
 
-      <input type="file" id="thermalInput" accept="image/*">
-      <br><br>
-
-      <button onclick="sendToBackend()">Detect Fire</button>
-
-  </div>
-
-</section>
-
-    
-    <section class="status-section">
-    <h2>Detection Status</h2>
-
-    <div class="status-card safe">
-        ✅ No Fire Detected
-    </div>
-
-    <div class="status-card alert">
-        🔴 Fire Detected!
-    </div>
-
-    <div class="risk-meter">
-        <div class="circle">
-            <span id="probability">45%</span>
+            <button onclick="sendToBackend()">Detect Fire</button>
         </div>
-        <p>Fire Probability</p>
-    </div>
+    </section>
 
-</section>
+    <section class="status-section">
+        <h2>Detection Status</h2>
 
-    
+        <div class="status-card safe">
+            ✅ No Fire Detected
+        </div>
+
+        <div class="status-card alert">
+            🔴 Fire Detected!
+        </div>
+
+        <div class="risk-meter">
+            <div class="circle">
+                <span id="probability">0%</span>
+            </div>
+            <p>Fire Probability</p>
+        </div>
+    </section>
 
     <section class="info-section">
         <h2>System Information</h2>

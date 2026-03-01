@@ -1,5 +1,3 @@
-# backend/app/services/ml_service.py
-
 import os
 import sys
 import threading
@@ -14,7 +12,6 @@ sys.path.append(ROOT_DIR)
 
 # 🔥 IMPORT FROM ROOT model.py
 from model import get_model
-
 
 # Model path (fire_model.pth should be in project root)
 MODEL_PATH = os.path.join(ROOT_DIR, "fire_model.pth")
@@ -58,10 +55,11 @@ def _predict_tensor(tensor):
         confidence, pred = torch.max(probs, 1)
 
     classes = ["fire", "nofire"]
+    is_fire = classes[pred.item()] == "fire"
 
     return {
-        "prediction": classes[pred.item()],
-        "confidence": float(confidence.item() * 100)
+        "fire_detected": is_fire,
+        "confidence": float(confidence.item())  # value between 0 and 1
     }
 
 
