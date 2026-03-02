@@ -104,15 +104,7 @@ python backend/run.py
 
 ---
 
-## 📈 Future Scope
 
-- Automated retraining pipeline  
-- CI/CD integration  
-- Cloud deployment monitoring  
-- IoT sensor integration  
-- Real-time alert system  
-
----
 
 ## 👥 Team
 
