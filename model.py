@@ -1,3 +1,12 @@
+"""
+model.py
+
+Defines the CNN/ResNet model architecture
+used for Forest Fire classification.
+Classes:
+    0 -> Fire
+    1 -> No Fire
+"""
 import torch.nn as nn
 from torchvision import models
 
