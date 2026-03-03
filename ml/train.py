@@ -1,3 +1,9 @@
+"""
+train.py
+
+Trains the forest fire classification model
+using transfer learning on ResNet18.
+"""
 import torch
 import torch.nn as nn
 import torch.optim as optim

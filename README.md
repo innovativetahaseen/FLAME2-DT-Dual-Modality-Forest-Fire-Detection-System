@@ -5,13 +5,14 @@
 
 ## 📌 Project Overview
 
-FLAME2-DT is a modular Flask-based web application that detects forest fires using a machine learning model and a dual-modality detection approach.
+FLAME2-DT is a modular Flask-based web application that detects forest fires using a deep learning model and a dual-modality detection approach (RGB + Thermal).
 
 The system integrates:
 
-- Image-based fire detection (ML model)  
-- Backend service layer for prediction handling  
-- Interactive web interface  
+- Image-based fire detection (PyTorch model)
+- Clean backend service layer (Flask)
+- Interactive frontend interface
+- Modular ML architecture
 
 ---
 
@@ -23,7 +24,6 @@ The system integrates:
 backend/
 │
 ├── app/
-│   ├── __init__.py
 │   ├── routes/
 │   │   └── detection_routes.py
 │   ├── services/
@@ -34,30 +34,45 @@ backend/
 │   ├── js/
 │   └── index.html
 │
-├── ml_model/
-│   └── model.py
-│
 ├── run.py
+│
+ml/
+│   ├── model.py
+│   ├── train.py
+│   └── fire_model.pth
+│
+dataset/
+│
+README.md
+requirements.txt
 ```
 
 ---
 
-### 🔄 Application Flow
+## 🔄 Application Flow
 
 ```
-User → Frontend UI → Flask Routes → ML Service → Model Prediction → Response
+User → Frontend → Flask Route → ML Service → PyTorch Model → Response → UI Update
 ```
 
 ---
 
 ## 🧠 Machine Learning Component
 
-- Custom-trained fire detection model  
-- Binary classification:
-  - Fire  
-  - No Fire  
-- Training handled via `train.py`  
-- Prediction handled via `ml_service.py`  
+### Model Architecture
+- Backbone: ResNet18
+- Framework: PyTorch
+- Input Size: 224x224
+- Classes:
+  - Fire
+  - No Fire
+
+### Features
+- Custom-trained CNN model
+- Trained using Forest Fire dataset
+- Model weights stored in `fire_model.pth`
+- Prediction handled via service layer (`ml_service.py`)
+- Training handled via `ml/train.py`
 
 ---
 
@@ -67,25 +82,10 @@ User → Frontend UI → Flask Routes → ML Service → Model Prediction → Re
 |-------|------------|
 | Backend | Python |
 | Framework | Flask |
-| ML | Custom Classification Model |
+| ML | PyTorch (ResNet18) |
 | Frontend | HTML, CSS, JavaScript |
 | Version Control | Git & GitHub |
 | Deployment | Render (Planned) |
-
----
-
-## 🔐 Security Status
-
-- No secrets detected  
-- Clean modular structure  
-- Service-layer separation implemented  
-- Ready for authentication integration  
-
-Future Improvements:
-
-- JWT Authentication  
-- File validation  
-- Role-based access control  
 
 ---
 
@@ -104,14 +104,12 @@ python backend/run.py
 
 ---
 
-## 📈 Future Scope
+## 🔐 Security & Architecture
 
-- Automated retraining pipeline  
-- CI/CD integration  
-- Cloud deployment monitoring  
-- IoT sensor integration  
-- Real-time alert system  
-
+- Modular separation (backend / ml / frontend)
+- Service-layer abstraction
+- No hardcoded secrets
+- Structured branch architecture
 ---
 
 ## 👥 Team
@@ -119,3 +117,5 @@ python backend/run.py
 - Tahaseen Khan  
 - Shaurya Singhal  
 - Bharti Chaudhary  
+
+---
