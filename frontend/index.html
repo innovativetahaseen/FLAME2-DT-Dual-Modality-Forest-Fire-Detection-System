@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>FLAME2 - Forest Fire Detection</title>
-    <link rel="stylesheet" href="css/style.css">
+
+    <!-- ✅ Correct Flask Static Path -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
@@ -62,6 +64,8 @@
     <p>© 2026 FLAME2 Project | Forest Monitoring System</p>
 </footer>
 
-<script src="js/script.js"></script>
+<!-- ✅ Correct Flask Static Path -->
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
 </body>
 </html>
