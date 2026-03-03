@@ -6,5 +6,5 @@ __pycache__/
 *.pth
 .env
 dataset/
-*.DS_Store
+.DS_Store
 uploads/

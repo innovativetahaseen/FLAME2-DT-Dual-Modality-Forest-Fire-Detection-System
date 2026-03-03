@@ -11,7 +11,7 @@ ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../"))
 sys.path.append(ROOT_DIR)
 
 # 🔥 IMPORT FROM ROOT model.py
-from model import get_model
+from ml.model import get_model
 
 # Model path (fire_model.pth should be in project root)
 MODEL_PATH = os.path.join(ROOT_DIR, "fire_model.pth")
