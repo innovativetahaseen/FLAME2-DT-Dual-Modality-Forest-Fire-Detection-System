@@ -1,4 +1,5 @@
 from flask import Blueprint, request, jsonify, render_template
+from flask_jwt_extended import jwt_required
 from app.services.ml_service import run_detection
 import os
 from werkzeug.utils import secure_filename
@@ -12,8 +13,9 @@ def serve_index():
     return render_template("index.html")
 
 
-# 🔥 Fire Detection API
+# 🔥 Fire Detection API (PROTECTED)
 @detection_bp.route("/api/detect", methods=["POST"])
+@jwt_required()
 def detect_fire():
     rgb = request.files.get("rgb_image")
     thermal = request.files.get("thermal_image")
@@ -38,7 +40,7 @@ def detect_fire():
     return jsonify(result), 200
 
 
-# 🔥 Health Check
+# 🔥 Health Check (PUBLIC)
 @detection_bp.route("/api/health")
 def health_check():
     return jsonify({
