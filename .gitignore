@@ -8,3 +8,10 @@ __pycache__/
 dataset/
 .DS_Store
 uploads/
+# Ignore SQLite databases
+*.db
+
+# Ignore Flask instance folder
+backend/instance/
+
+
