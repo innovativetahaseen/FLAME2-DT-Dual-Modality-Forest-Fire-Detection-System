@@ -46,7 +46,7 @@ function About() {
         </div>
 
         <div className="team-card">
-          <h3>Tahseen Khan</h3>
+          <h3>Tahaseen Khan</h3>
           <p>Backend & API Integration</p>
         </div>
 
