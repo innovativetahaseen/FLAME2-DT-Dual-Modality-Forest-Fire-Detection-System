@@ -3,15 +3,14 @@ venv/
 .venv/
 __pycache__/
 *.pyc
-*.pth
+
 .env
 dataset/
 .DS_Store
 uploads/
+
 # Ignore SQLite databases
 *.db
 
 # Ignore Flask instance folder
 backend/instance/
-
-

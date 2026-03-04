@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>FLAME2 - Forest Fire Detection</title>
 
-    <!-- ✅ Correct Flask Static Path -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -12,6 +11,12 @@
 <header class="navbar">
     <h1>🔥 FLAME2-DT</h1>
     <p>Dual Modality Forest Fire Detection System</p>
+
+    <div style="margin-top:10px;">
+        <button onclick="loginUser()">Login</button>
+        <button onclick="logoutUser()">Logout</button>
+        <span id="authStatus" style="margin-left:15px;"></span>
+    </div>
 </header>
 
 <main class="dashboard">
@@ -37,7 +42,7 @@
             ✅ No Fire Detected
         </div>
 
-        <div class="status-card alert">
+        <div class="status-card alert" style="display:none;">
             🔴 Fire Detected!
         </div>
 
@@ -64,8 +69,28 @@
     <p>© 2026 FLAME2 Project | Forest Monitoring System</p>
 </footer>
 
-<!-- ✅ Correct Flask Static Path -->
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+<script>
+    function updateAuthStatus() {
+        const token = localStorage.getItem("access_token");
+        const status = document.getElementById("authStatus");
+
+        if (token) {
+            status.innerText = "🟢 Logged In";
+        } else {
+            status.innerText = "🔴 Not Logged In";
+        }
+    }
+
+    function logoutUser() {
+        localStorage.removeItem("access_token");
+        updateAuthStatus();
+        alert("Logged out successfully");
+    }
+
+    updateAuthStatus();
+</script>
 
 </body>
 </html>
