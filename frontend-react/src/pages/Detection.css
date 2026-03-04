@@ -1,0 +1,53 @@
+.detection-container {
+  color: white;
+}
+
+.upload-section {
+  display: flex;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.upload-card {
+  background: linear-gradient(145deg, #1e293b, #0f172a);
+  padding: 20px;
+  border-radius: 12px;
+  width: 250px;
+  text-align: center;
+}
+
+.upload-card img {
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.detect-btn {
+  margin-top: 30px;
+  padding: 12px 25px;
+  background-color: #ff4500;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.detect-btn:hover {
+  background-color: #ff6a00;
+}
+button {
+  background: linear-gradient(90deg, #ff4d00, #ff7a00);
+  border: none;
+  padding: 14px 30px;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(255, 85, 0, 0.5);
+}

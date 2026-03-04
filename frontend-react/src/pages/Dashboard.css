@@ -1,0 +1,32 @@
+.dashboard-container {
+  color: white;
+}
+
+.dashboard-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: linear-gradient(145deg, #0f172a, #1e293b);
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 85, 0, 0.3);
+}
+
+.status-online {
+  color: #00ff88;
+  font-weight: bold;
+}

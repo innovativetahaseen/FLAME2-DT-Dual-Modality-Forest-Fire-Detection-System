@@ -1,16 +1,22 @@
+# Python
 backend/venv/
 venv/
-.venv/
+.env
 __pycache__/
 *.pyc
 
-.env
-dataset/
-.DS_Store
-uploads/
-
-# Ignore SQLite databases
+# Flask
+backend/instance/
 *.db
 
-# Ignore Flask instance folder
-backend/instance/
+# Dataset / uploads
+dataset/
+uploads/
+
+# Mac
+.DS_Store
+
+# React / Node
+node_modules/
+dist/
+build/
