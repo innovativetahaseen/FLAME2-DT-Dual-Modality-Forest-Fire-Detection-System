@@ -30,8 +30,13 @@ function Detection() {
     let data;
 
     try {
-      data = await detectFire(formData);
+      // 🔑 Get JWT token from localStorage
+      const token = localStorage.getItem("token");
+
+      data = await detectFire(formData, token);
+
     } catch (error) {
+      console.error(error);
       setLoading(false);
       alert("Server error. Please try again.");
       return;
@@ -39,7 +44,7 @@ function Detection() {
 
     setLoading(false);
 
-    // Sidebar glow effect
+    // 🔥 Sidebar glow effect
     if (data?.fire_detected) {
       context?.setDetected(true);
 
@@ -48,7 +53,7 @@ function Detection() {
       }, 3000);
     }
 
-    // Navigate to results with data
+    // 📊 Navigate to results page
     navigate("/results", {
       state: {
         confidence: data?.confidence ?? 0,
