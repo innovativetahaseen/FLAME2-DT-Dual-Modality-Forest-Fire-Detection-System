@@ -4,17 +4,28 @@ from sklearn.metrics import recall_score
 from sklearn.metrics import f1_score
 from sklearn.metrics import confusion_matrix
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 
 def evaluate(y_true, y_pred):
 
     accuracy = accuracy_score(y_true, y_pred)
-
     precision = precision_score(y_true, y_pred)
-
     recall = recall_score(y_true, y_pred)
-
     f1 = f1_score(y_true, y_pred)
 
     cm = confusion_matrix(y_true, y_pred)
 
     return accuracy, precision, recall, f1, cm
+
+
+def plot_confusion_matrix(cm):
+
+    sns.heatmap(cm, annot=True, fmt="d", cmap="Blues")
+
+    plt.xlabel("Predicted")
+    plt.ylabel("Actual")
+    plt.title("Confusion Matrix")
+
+    plt.show()

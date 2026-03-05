@@ -4,9 +4,10 @@ from torch.utils.data import DataLoader
 
 from preprocessing.transforms import transform
 from models.model import get_model
-from utils.metrics import evaluate
+from utils.metrics import evaluate, plot_confusion_matrix
 
-# load dataset
+
+# load testing dataset
 test_dataset = ImageFolder(
     root="dataset/Forest Fire Dataset/Testing",
     transform=transform
@@ -18,14 +19,18 @@ test_loader = DataLoader(
     shuffle=False
 )
 
-# load model
+
+# load trained model
 model = get_model(num_classes=2)
 model.load_state_dict(torch.load("saved_models/fire_model.pth"))
 model.eval()
 
+
 y_true = []
 y_pred = []
 
+
+# run inference on test dataset
 with torch.no_grad():
 
     for images, labels in test_loader:
@@ -38,12 +43,21 @@ with torch.no_grad():
         y_pred.extend(predicted.tolist())
 
 
+# compute metrics
 accuracy, precision, recall, f1, cm = evaluate(y_true, y_pred)
 
-print("Accuracy:", accuracy)
-print("Precision:", precision)
-print("Recall:", recall)
-print("F1 Score:", f1)
 
-print("Confusion Matrix:")
+print("\nModel Evaluation Results")
+print("------------------------")
+
+print("Accuracy :", accuracy)
+print("Precision:", precision)
+print("Recall   :", recall)
+print("F1 Score :", f1)
+
+print("\nConfusion Matrix:")
 print(cm)
+
+
+# show confusion matrix plot
+plot_confusion_matrix(cm)
