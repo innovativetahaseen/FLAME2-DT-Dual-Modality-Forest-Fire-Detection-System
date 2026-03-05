@@ -3,7 +3,7 @@ import { registerUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
@@ -12,7 +12,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.username || !form.password) {
+    if (!form.username || !form.email || !form.password) {
       setError("All fields are required");
       return;
     }
@@ -76,6 +76,7 @@ function Register() {
         )}
 
         <form onSubmit={handleSubmit}>
+          {/* Username */}
           <input
             placeholder="Username"
             onChange={(e) =>
@@ -85,6 +86,18 @@ function Register() {
           />
           <br /><br />
 
+          {/* Email */}
+          <input
+            type="email"
+            placeholder="Email Address"
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
+            style={{ width: "100%", padding: "8px" }}
+          />
+          <br /><br />
+
+          {/* Password */}
           <input
             type="password"
             placeholder="Password"
