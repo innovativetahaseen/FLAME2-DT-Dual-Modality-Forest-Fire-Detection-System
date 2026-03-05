@@ -5,10 +5,14 @@ from PIL import Image
 from models.model import get_model
 from preprocessing.transforms import transform
 
-# load model
+
+# load trained model
 model = get_model(num_classes=2)
-model.load_state_dict(torch.load("saved_models/fire_model.pth"))
+model.load_state_dict(torch.load("saved_models/fire_model.pth", map_location=torch.device("cpu")))
 model.eval()
+
+
+classes = ["fire", "nofire"]
 
 
 def predict_image(image_path):
@@ -22,7 +26,7 @@ def predict_image(image_path):
     # add batch dimension
     image = image.unsqueeze(0)
 
-    # prediction
+    # inference
     with torch.no_grad():
 
         outputs = model(image)
@@ -31,6 +35,19 @@ def predict_image(image_path):
 
         confidence, predicted = torch.max(probabilities, 1)
 
-    classes = ["fire", "nofire"]
+    result = {
+        "prediction": classes[predicted.item()],
+        "confidence": float(confidence.item())
+    }
 
-    return classes[predicted.item()], confidence.item()
+    return result
+
+
+# test block
+if __name__ == "__main__":
+
+    image_path = "dataset/Forest Fire Dataset/Testing/fire/fire_0002.jpg"
+
+    result = predict_image(image_path)
+
+    print(result)
