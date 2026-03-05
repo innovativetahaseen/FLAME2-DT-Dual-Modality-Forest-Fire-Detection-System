@@ -1,82 +1,41 @@
-import { NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { DetectionContext } from "../context/DetectionContext";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
-  const { detected } = useContext(DetectionContext);
-
-  const linkStyle = ({ isActive }) => ({
-    color: "white",
-    textDecoration: "none",
-    padding: "12px 15px",
-    borderRadius: "10px",
-    background: isActive
-      ? "linear-gradient(90deg, #1e293b, #0f172a)"
-      : "transparent",
-    transition: "all 0.3s ease",
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-  });
-
   return (
     <div
       style={{
-        width: "240px",
-        height: "100vh",
-        background: "linear-gradient(180deg, #0f172a, #111827)",
-        boxShadow: "4px 0 25px rgba(0,0,0,0.7)",
+        width: "220px",
+        background: "#0f172a",
         color: "white",
-        padding: "25px 20px",
+        height: "100vh",
+        padding: "20px"
       }}
     >
-      <h2
-        style={{
-          marginBottom: "40px",
-          fontSize: "22px",
-          letterSpacing: "1px",
-        }}
-      >
-        🔥 FLAME2
-      </h2>
+      <h2 style={{ marginBottom: "30px" }}>🔥 FLAME2</h2>
 
-      <nav
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "18px",
-        }}
-      >
-        <NavLink to="/" style={linkStyle}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+
+        <Link to="/dashboard" style={{ color: "white", textDecoration: "none" }}>
           🏠 Dashboard
-        </NavLink>
+        </Link>
 
-        <NavLink to="/detection" style={linkStyle}>
+        <Link to="/detection" style={{ color: "white", textDecoration: "none" }}>
           📷 Detection
-        </NavLink>
+        </Link>
 
-        {/* 🔥 Results with Glow Effect */}
-        <NavLink
-          to="/results"
-          style={({ isActive }) => ({
-            ...linkStyle({ isActive }),
-            background: detected
-              ? "#1e40af"
-              : isActive
-              ? "linear-gradient(90deg, #1e293b, #0f172a)"
-              : "transparent",
-            boxShadow: detected
-              ? "0 0 15px #3b82f6"
-              : "none",
-          })}
-        >
-          📊 Results
-        </NavLink>
+        <Link to="/sensor" style={{ color: "white", textDecoration: "none" }}>
+          🌡 Sensor
+        </Link>
 
-        <NavLink to="/about" style={linkStyle}>
-          ℹ️ About
-        </NavLink>
-      </nav>
+        <Link to="/history" style={{ color: "white", textDecoration: "none" }}>
+          📊 History
+        </Link>
+
+        <Link to="/about" style={{ color: "white", textDecoration: "none" }}>
+          ℹ About
+        </Link>
+
+      </div>
     </div>
   );
 }
