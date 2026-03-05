@@ -11,17 +11,31 @@ def register():
     data = request.get_json()
 
     username = data.get("username")
+    email = data.get("email")
     password = data.get("password")
 
-    if not username or not password:
-        return jsonify({"msg": "Username and password required"}), 400
+    # Validate fields
+    if not username or not email or not password:
+        return jsonify({"msg": "Username, email and password required"}), 400
 
+    # Check if username exists
     if User.query.filter_by(username=username).first():
-        return jsonify({"msg": "User already exists"}), 400
+        return jsonify({"msg": "Username already exists"}), 400
 
+    # Check if email exists
+    if User.query.filter_by(email=email).first():
+        return jsonify({"msg": "Email already registered"}), 400
+
+    # Hash password
     hashed_password = bcrypt.generate_password_hash(password).decode("utf-8")
 
-    new_user = User(username=username, password=hashed_password)
+    # Create user
+    new_user = User(
+        username=username,
+        email=email,
+        password=hashed_password
+    )
+
     db.session.add(new_user)
     db.session.commit()
 
@@ -39,7 +53,6 @@ def login():
     user = User.query.filter_by(username=username).first()
 
     if user and bcrypt.check_password_hash(user.password, password):
-        # 🔥 FIX: identity must be string
         access_token = create_access_token(identity=str(user.id))
         return jsonify({"access_token": access_token}), 200
 
