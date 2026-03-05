@@ -61,3 +61,11 @@ print(cm)
 
 # show confusion matrix plot
 plot_confusion_matrix(cm)
+with open("evaluation_results.txt", "w") as f:
+    f.write(f"Accuracy: {accuracy}\n")
+    f.write(f"Precision: {precision}\n")
+    f.write(f"Recall: {recall}\n")
+    f.write(f"F1 Score: {f1}\n")
+    f.write(f"Confusion Matrix:\n{cm}\n")
+
+print("\nResults saved to evaluation_results.txt")
