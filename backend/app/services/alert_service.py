@@ -1,11 +1,13 @@
 import smtplib
+import os
 from email.mime.text import MIMEText
 
 
 def send_fire_alert(user_email, confidence):
 
-    sender_email = "khalid078060@gmail.com"
-    sender_password = "pxyfeogdshyozwfi"
+    # Read credentials from environment variables
+    sender_email = os.getenv("EMAIL_USER")
+    sender_password = os.getenv("EMAIL_PASS")
 
     subject = "🔥 Forest Fire Alert"
 
