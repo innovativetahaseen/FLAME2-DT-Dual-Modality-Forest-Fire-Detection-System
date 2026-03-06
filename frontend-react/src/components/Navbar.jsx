@@ -1,73 +1,64 @@
 import { useNavigate } from "react-router-dom";
 
-function Navbar() {
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+function Navbar(){
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
+const navigate = useNavigate();
 
-  return (
-    <div
-      style={{
-        background: "linear-gradient(to right, #1e293b, #0f172a)",
-        color: "white",
-        padding: "15px 30px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
-    >
-      <h3 style={{ margin: 0 }}>
-        Dual Modality Forest Fire Detection System
-      </h3>
+const logout = () => {
 
-      <div>
-        {!token ? (
-          <>
-            <button
-              onClick={() => navigate("/login")}
-              style={{
-                marginRight: "10px",
-                padding: "6px 14px",
-                borderRadius: "6px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Login
-            </button>
+localStorage.removeItem("token");
 
-            <button
-              onClick={() => navigate("/register")}
-              style={{
-                padding: "6px 14px",
-                borderRadius: "6px",
-                border: "none",
-                cursor: "pointer",
-              }}
-            >
-              Register
-            </button>
-          </>
-        ) : (
-          <button
-            onClick={handleLogout}
-            style={{
-              padding: "6px 14px",
-              borderRadius: "6px",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Logout
-          </button>
-        )}
-      </div>
-    </div>
-  );
+navigate("/");
+
+};
+
+return (
+
+<div
+style={{
+display:"flex",
+justifyContent:"space-between",
+alignItems:"center",
+padding:"15px 25px",
+background:"#0f172a",
+color:"white",
+borderBottom:"1px solid #1e293b"
+}}
+>
+
+<h2 style={{margin:0}}>
+🔥 Forest Fire Detection System
+</h2>
+
+<div style={{display:"flex",alignItems:"center",gap:"20px"}}>
+
+<span style={{color:"#94a3b8"}}>
+Dashboard
+</span>
+
+<button
+onClick={logout}
+style={{
+background:"#f97316",
+border:"none",
+padding:"8px 15px",
+borderRadius:"6px",
+color:"white",
+cursor:"pointer",
+fontWeight:"bold"
+}}
+>
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+);
+
 }
 
 export default Navbar;

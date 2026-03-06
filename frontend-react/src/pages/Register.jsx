@@ -1,138 +1,130 @@
 import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import "./Register.css";
 
 function Register() {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const [form, setForm] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    if (!form.username || !form.email || !form.password) {
-      setError("All fields are required");
-      return;
-    }
-
-    if (form.password.length < 4) {
-      setError("Password must be at least 4 characters");
+    if (form.password !== form.confirmPassword) {
+      setError("Passwords do not match");
       return;
     }
 
     setError("");
-    setSuccess("");
     setLoading(true);
 
-    const data = await registerUser(form);
+    try {
+
+      const res = await registerUser({
+        username: form.username,
+        email: form.email,
+        password: form.password
+      });
+
+      if (res.msg === "User already exists") {
+        setError(res.msg);
+      } else {
+
+        alert("Registration Successful!");
+
+        navigate("/login");
+      }
+
+    } catch (err) {
+      console.error(err);
+      setError("Something went wrong");
+    }
 
     setLoading(false);
-
-    if (data.msg === "User registered successfully") {
-      setSuccess("Registered successfully! Redirecting...");
-
-      setTimeout(() => {
-        navigate("/login");
-      }, 1500);
-    } else {
-      setError(data.msg || "User already exists");
-    }
   };
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        background: "linear-gradient(to right, #0f172a, #1e293b)",
-        color: "white",
-      }}
-    >
-      <div
-        style={{
-          background: "#1e293b",
-          padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 0 20px rgba(0,0,0,0.5)",
-          width: "300px",
-        }}
-      >
-        <h2 style={{ textAlign: "center" }}>📝 Register</h2>
+    <div className="register-container">
 
-        {error && (
-          <p style={{ color: "#f87171", textAlign: "center" }}>
-            {error}
-          </p>
-        )}
+      <div className="register-header">
+        <h1>🔥 FLAME2-DT</h1>
+        <p>Create your account</p>
+      </div>
 
-        {success && (
-          <p style={{ color: "#22c55e", textAlign: "center" }}>
-            {success}
-          </p>
-        )}
+      <div className="register-card">
+        <h2>Register</h2>
 
-        <form onSubmit={handleSubmit}>
-          {/* Username */}
+        {error && <div className="error-box">{error}</div>}
+
+        <form onSubmit={handleRegister}>
+
+          <label>Username</label>
           <input
-            placeholder="Username"
-            onChange={(e) =>
-              setForm({ ...form, username: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px" }}
+            type="text"
+            name="username"
+            placeholder="Enter username"
+            value={form.username}
+            onChange={handleChange}
+            required
           />
-          <br /><br />
 
-          {/* Email */}
+          <label>Email</label>
           <input
             type="email"
-            placeholder="Email Address"
-            onChange={(e) =>
-              setForm({ ...form, email: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px" }}
+            name="email"
+            placeholder="Enter email"
+            value={form.email}
+            onChange={handleChange}
+            required
           />
-          <br /><br />
 
-          {/* Password */}
+          <label>Password</label>
           <input
             type="password"
-            placeholder="Password"
-            onChange={(e) =>
-              setForm({ ...form, password: e.target.value })
-            }
-            style={{ width: "100%", padding: "8px" }}
+            name="password"
+            placeholder="Enter password"
+            value={form.password}
+            onChange={handleChange}
+            required
           />
-          <br /><br />
 
-          <button
-            type="submit"
-            disabled={loading}
-            style={{
-              width: "100%",
-              padding: "8px",
-              background: loading ? "#6b7280" : "#22c55e",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
-            }}
-          >
-            {loading ? "Registering..." : "Register"}
+          <label>Confirm Password</label>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm password"
+            value={form.confirmPassword}
+            onChange={handleChange}
+            required
+          />
+
+          <button type="submit" className="register-btn">
+            {loading ? "Creating..." : "Create Account"}
           </button>
+
         </form>
 
-        <p style={{ textAlign: "center", marginTop: "15px" }}>
-          Already have an account?{" "}
-          <span
-            onClick={() => navigate("/login")}
-            style={{ color: "#22c55e", cursor: "pointer" }}
-          >
-            Login
-          </span>
+        <p className="login-link">
+          Already registered? <Link to="/login">Sign in</Link>
         </p>
+
       </div>
     </div>
   );
