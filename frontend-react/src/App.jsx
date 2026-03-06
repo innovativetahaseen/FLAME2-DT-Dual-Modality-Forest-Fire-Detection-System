@@ -10,6 +10,7 @@ import History from "./pages/History";
 import About from "./pages/About";
 
 import MainLayout from "./components/MainLayout";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
 
@@ -24,9 +25,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Main Layout */}
+        {/* Protected Routes */}
 
-        <Route path="/" element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
+          }
+        >
 
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="detection" element={<Detection />} />

@@ -5,11 +5,8 @@ function Navbar(){
 const navigate = useNavigate();
 
 const logout = () => {
-
-localStorage.removeItem("token");
-
-navigate("/");
-
+  localStorage.removeItem("token");
+  navigate("/login", { replace: true });
 };
 
 return (
@@ -48,9 +45,7 @@ cursor:"pointer",
 fontWeight:"bold"
 }}
 >
-
 Logout
-
 </button>
 
 </div>
