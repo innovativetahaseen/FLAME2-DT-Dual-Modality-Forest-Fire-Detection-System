@@ -191,7 +191,7 @@ borderRadius:"10px"
 
 <input placeholder="Wind" value={wind} onChange={(e)=>setWind(e.target.value)} style={{width:"100%",marginBottom:"10px"}}/>
 
-<input placeholder="Location" value={location} onChange={(e)=>setLocation(e.target.value)} style={{width:"100%"}/>
+<input placeholder="Location" value={location} onChange={(e)=>setLocation(e.target.value)} style={{width:"100%"}}/>
 
 </div>
 
