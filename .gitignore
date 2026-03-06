@@ -20,3 +20,8 @@ uploads/
 node_modules/
 dist/
 build/
+
+**/.DS_Store
+frontend-react/.vite/
+node_modules/
+dist/
