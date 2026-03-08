@@ -11,19 +11,6 @@ from werkzeug.utils import secure_filename
 
 detection_bp = Blueprint('detection', __name__)
 
-<<<<<<< HEAD
-# 🔒 Email alert cooldown (seconds)
-ALERT_COOLDOWN = 30
-last_alert_time = 0
-
-
-# ✅ Serve frontend
-@detection_bp.route("/")
-def serve_index():
-    return render_template("index.html")
-=======
-
->>>>>>> origin/main
 
 
 # 🔥 Fire Detection API (PROTECTED)
