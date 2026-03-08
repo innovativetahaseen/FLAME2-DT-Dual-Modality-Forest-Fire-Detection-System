@@ -10,10 +10,7 @@ import uuid
 
 detection_bp = Blueprint('detection', __name__)
 
-# ✅ Serve frontend
-@detection_bp.route("/")
-def serve_index():
-    return render_template("index.html")
+
 
 
 # 🔥 Fire Detection API (PROTECTED)

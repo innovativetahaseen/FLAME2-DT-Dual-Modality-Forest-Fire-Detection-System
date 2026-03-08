@@ -9,11 +9,7 @@ import secrets
 def create_app():
     BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 
-    app = Flask(
-        __name__,
-        template_folder=os.path.join(BASE_DIR, "frontend"),
-        static_folder=os.path.join(BASE_DIR, "frontend")
-    )
+    app = Flask(__name__)
 
     # 🔐 Strong Secret Key (64 hex characters)
     strong_secret = secrets.token_hex(32)
