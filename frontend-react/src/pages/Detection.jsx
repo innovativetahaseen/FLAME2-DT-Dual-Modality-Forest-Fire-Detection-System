@@ -4,7 +4,9 @@ import RiskChart from "../components/RiskChart";
 
 function Detection(){
 
-const [image,setImage] = useState(null);
+const [rgbImage,setRgbImage] = useState(null);
+const [thermalImage,setThermalImage] = useState(null);
+
 const [result,setResult] = useState(null);
 const [riskScore,setRiskScore] = useState(0);
 
@@ -28,34 +30,33 @@ localStorage.setItem("fire_history",JSON.stringify(old));
 
 };
 
-/* drag drop */
+/* file handlers */
 
-const handleDrop = (e)=>{
-e.preventDefault();
-const file = e.dataTransfer.files[0];
-
-if(file){
-setImage(URL.createObjectURL(file));
-}
-};
-
-const handleFile = (e)=>{
+const handleRgbFile = (e)=>{
 const file = e.target.files[0];
 
 if(file){
-setImage(URL.createObjectURL(file));
+setRgbImage(URL.createObjectURL(file));
+}
+};
+
+const handleThermalFile = (e)=>{
+const file = e.target.files[0];
+
+if(file){
+setThermalImage(URL.createObjectURL(file));
 }
 };
 
 const analyzeImage = ()=>{
 
-if(!image){
-alert("Upload image first");
+if(!rgbImage || !thermalImage){
+alert("Upload both RGB and Thermal images");
 return;
 }
 
 const img = new Image();
-img.src = image;
+img.src = rgbImage;
 
 img.onload = ()=>{
 
@@ -104,28 +105,22 @@ fire: fireDetected,
 confidence
 });
 
-/* -------- save history -------- */
+/* save history */
 
 const record = {
 
 id: Date.now(),
-
 time: new Date().toLocaleString(),
-
 fire: fireDetected,
-
 prob: confidence + "%",
 
 temp: temperature,
-
 humidity: humidity,
-
 smoke: smoke,
 
 risk: risk > 70 ? "HIGH" : risk > 40 ? "MEDIUM" : "LOW",
 
 score: risk,
-
 location: location || "-"
 
 };
@@ -144,32 +139,72 @@ return(
 
 <h1>📷 Fire Detection</h1>
 
+{/* RGB + Thermal Upload */}
+
 <div
-onDrop={handleDrop}
-onDragOver={(e)=>e.preventDefault()}
 style={{
-border:"2px dashed #475569",
-borderRadius:"12px",
-padding:"40px",
-textAlign:"center",
+display:"grid",
+gridTemplateColumns:"1fr 1fr",
+gap:"20px",
 marginBottom:"20px"
 }}
 >
 
-<input type="file" onChange={handleFile}/>
+{/* RGB BLOCK */}
 
-{image ? (
+<div
+style={{
+border:"2px dashed #475569",
+borderRadius:"12px",
+padding:"30px",
+textAlign:"center"
+}}
+>
 
+<h3>📷 RGB Image</h3>
+
+<input type="file" onChange={handleRgbFile}/>
+
+{rgbImage && (
 <img
-src={image}
-style={{width:"100%",marginTop:"10px",borderRadius:"10px"}}
+src={rgbImage}
+style={{
+width:"100%",
+marginTop:"15px",
+borderRadius:"10px"
+}}
 />
-
-):(
-
-<p>Drag & drop or click to upload image</p>
-
 )}
+
+</div>
+
+{/* THERMAL BLOCK */}
+
+<div
+style={{
+border:"2px dashed #475569",
+borderRadius:"12px",
+padding:"30px",
+textAlign:"center"
+}}
+>
+
+<h3>🌡 Thermal Image</h3>
+
+<input type="file" onChange={handleThermalFile}/>
+
+{thermalImage && (
+<img
+src={thermalImage}
+style={{
+width:"100%",
+marginTop:"15px",
+borderRadius:"10px"
+}}
+/>
+)}
+
+</div>
 
 </div>
 
@@ -209,7 +244,7 @@ fontSize:"16px"
 }}
 >
 
-🔥 Analyze Image
+🔥 Analyze Images
 
 </button>
 
