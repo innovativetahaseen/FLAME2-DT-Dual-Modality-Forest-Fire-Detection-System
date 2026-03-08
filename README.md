@@ -1,15 +1,29 @@
-# 🔥 FLAME2-DT
+# 🔥 FLAME2-DT  
 ## Dual-Modality Forest Fire Detection System
+
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react)
+![Flask](https://img.shields.io/badge/Flask-Backend-000000?logo=flask)
+![PyTorch](https://img.shields.io/badge/PyTorch-DeepLearning-EE4C2C?logo=pytorch)
+![JWT](https://img.shields.io/badge/Auth-JWT-green)
+![REST API](https://img.shields.io/badge/API-REST-orange)
+![Vite](https://img.shields.io/badge/Vite-Build-purple?logo=vite)
+![Python](https://img.shields.io/badge/Python-Backend-3776AB?logo=python)
+![GitHub](https://img.shields.io/badge/Git-VersionControl-black?logo=github)
 
 ---
 
-## 📌 Project Overview
+# 📌 Project Overview
 
-FLAME2-DT (Forest Learning and Monitoring Engine - Dual Technology) is a modular full-stack intelligent system designed to detect forest fires using a **dual-modality deep learning approach**.
+**FLAME2-DT (Forest Learning and Monitoring Engine – Dual Technology)** is an AI-powered forest fire detection platform that uses a **dual-modality deep learning approach (RGB + Thermal images)** to detect fires early.
 
-The system integrates **RGB and Thermal image inputs** to improve early fire detection accuracy. The architecture separates **Frontend, Backend, Machine Learning, and Alert Services** for scalable development and easier maintenance.
+The system is designed with a **modular full-stack architecture**, combining:
 
-The platform allows users to upload images and receive **AI-based fire detection predictions in real time**. When fire is detected, the system triggers an **Alert System** to notify users for early response and monitoring.
+• React Frontend  
+• Flask Backend API  
+• PyTorch Machine Learning Model  
+• Automated Alert System  
+
+Users can upload images to the system and receive **real-time fire detection predictions**. When a fire is detected, the system triggers an **alert notification system** for faster emergency response.
 
 ---
 
@@ -28,9 +42,9 @@ ML Detection Service
  ↓
 Fire Detection Model (RGB + Thermal)
  ↓
-Prediction
+Prediction Engine
  ↓
-Alert System (Email / Notification)
+Alert System (Email Notification)
  ↓
 Response to User
 ```
@@ -99,34 +113,33 @@ FLAME2-DT-Dual-Modality-Forest-Fire-Detection-System/
 # ⚙️ Technologies Used
 
 ## Backend
-- Python
-- Flask
-- REST API
-- Flask-JWT-Extended
-- SQLAlchemy
+Python  
+Flask  
+REST API  
+Flask-JWT-Extended  
+SQLAlchemy  
 
 ## Frontend
-- React
-- Vite
-- JavaScript
-- HTML
-- CSS
-- Axios / Fetch API
+React  
+Vite  
+JavaScript  
+HTML  
+CSS  
+Axios / Fetch API  
 
 ## Machine Learning
-- PyTorch
-- Image Classification
-- Dual-Modality Detection
+PyTorch  
+Deep Learning Image Classification  
+Dual-Modality Detection  
 
 ## Alert System
-- Automated Fire Detection Alerts
-- Email Notification System
-- Environment Variable based configuration
+Email Notification System  
+Environment Variable Configuration  
 
 ## Version Control
-- Git
-- GitHub
-- Branch-based Development Workflow
+Git  
+GitHub  
+Branch-Based Development Workflow  
 
 ---
 
@@ -134,15 +147,14 @@ FLAME2-DT-Dual-Modality-Forest-Fire-Detection-System/
 
 ## 1️⃣ Clone the Repository
 
-```bash
-git clone https://github.com/your-username/FLAME2-DT-Dual-Modality-Forest-Fire-Detection-System.git
-
+```
+git clone https://github.com/innovativetahaseen/FLAME2-DT-Dual-Modality-Forest-Fire-Detection-System.git
 cd FLAME2-DT-Dual-Modality-Forest-Fire-Detection-System
 ```
 
 ---
 
-# 2️⃣ Setup Backend
+## 2️⃣ Setup Backend
 
 ```
 cd backend
@@ -169,13 +181,13 @@ pip install -r ../requirements.txt
 
 ---
 
-# 3️⃣ Run Backend Server
+## 3️⃣ Run Backend Server
 
 ```
 python run.py
 ```
 
-Backend will run at
+Backend will run at:
 
 ```
 http://127.0.0.1:5000
@@ -183,7 +195,7 @@ http://127.0.0.1:5000
 
 ---
 
-# 4️⃣ Run Frontend
+## 4️⃣ Run Frontend
 
 Open a new terminal
 
@@ -193,7 +205,7 @@ npm install
 npm run dev
 ```
 
-Frontend will run at
+Frontend will run at:
 
 ```
 http://localhost:5173
