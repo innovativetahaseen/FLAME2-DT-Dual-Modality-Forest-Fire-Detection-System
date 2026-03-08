@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { detectFire } from "../services/api";
 import RiskMeter from "../components/RiskMeter";
 import RiskChart from "../components/RiskChart";
 
@@ -7,8 +8,12 @@ function Detection(){
 const [rgbImage,setRgbImage] = useState(null);
 const [thermalImage,setThermalImage] = useState(null);
 
+const [rgbFile,setRgbFile] = useState(null);
+const [thermalFile,setThermalFile] = useState(null);
+
 const [result,setResult] = useState(null);
 const [riskScore,setRiskScore] = useState(0);
+const [loading,setLoading] = useState(false);
 
 /* sensor states */
 
@@ -34,7 +39,9 @@ localStorage.setItem("fire_history",JSON.stringify(old));
 
 const handleRGB = (e)=>{
 const file = e.target.files[0];
+
 if(file){
+setRgbFile(file);
 setRgbImage(URL.createObjectURL(file));
 }
 };
@@ -43,71 +50,45 @@ setRgbImage(URL.createObjectURL(file));
 
 const handleThermal = (e)=>{
 const file = e.target.files[0];
-if(file){
-setThermalImage(URL.createObjectURL(file));
 
+if(file){
+setThermalFile(file);
+setThermalImage(URL.createObjectURL(file));
 }
 };
 
 /* analyze */
 
-const analyzeImage = ()=>{
+const analyzeImage = async ()=>{
 
-if(!rgbImage || !thermalImage){
+if(loading) return;
+
+if(!rgbFile || !thermalFile){
 alert("Upload both RGB and Thermal images");
-
 return;
 }
 
-const img = new Image();
-img.src = rgbImage;
+setLoading(true);
 
-img.onload = ()=>{
+const token = localStorage.getItem("token");
 
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
+const formData = new FormData();
 
-canvas.width = img.width;
-canvas.height = img.height;
+formData.append("rgb_image", rgbFile);
+formData.append("thermal_image", thermalFile);
 
-ctx.drawImage(img,0,0);
+try{
 
-const data = ctx.getImageData(0,0,img.width,img.height).data;
+const data = await detectFire(formData, token);
 
-let firePixels = 0;
-
-for(let i=0;i<data.length;i+=4){
-
-const r = data[i];
-const g = data[i+1];
-const b = data[i+2];
-
-if(
-r > 150 &&
-g > 50 &&
-g < 220 &&
-b < 120
-){
-firePixels++;
-}
-
-}
-
-const totalPixels = data.length/4;
-const fireRatio = firePixels/totalPixels;
-
-let confidence = Math.min(100,Math.round(fireRatio * 350));
-
-let risk = confidence;
-
-setRiskScore(risk);
-
-const fireDetected = confidence > 20;
+const confidence = Math.round(data.confidence * 100);
 
 setResult({
-fire: fireDetected,
+fire: confidence > 50,
 confidence
 });
+
+setRiskScore(confidence);
 
 /* history */
 
@@ -115,23 +96,31 @@ const record = {
 
 id: Date.now(),
 time: new Date().toLocaleString(),
-fire: fireDetected,
+fire: confidence > 50,
 prob: confidence + "%",
 
 temp: temperature,
 humidity: humidity,
 smoke: smoke,
 
-risk: risk > 70 ? "HIGH" : risk > 40 ? "MEDIUM" : "LOW",
+risk: confidence > 70 ? "HIGH" : confidence > 40 ? "MEDIUM" : "LOW",
 
-score: risk,
+score: confidence,
 location: location || "-"
 
 };
 
 saveHistory(record);
 
-};
+}
+catch(err){
+
+console.error(err);
+alert("Detection failed");
+
+}
+
+setLoading(false);
 
 };
 
@@ -144,8 +133,6 @@ return(
 <div>
 
 <h1>📷 Fire Detection</h1>
-
-{/* Upload Section */}
 
 <div style={{
 display:"grid",
@@ -168,7 +155,6 @@ textAlign:"center"
 <input type="file" onChange={handleRGB}/>
 
 {rgbImage && (
-
 <img
 src={rgbImage}
 style={{width:"100%",marginTop:"10px",borderRadius:"10px"}}
@@ -224,20 +210,24 @@ borderRadius:"10px"
 </div>
 
 <button
+type="button"
 onClick={analyzeImage}
+disabled={loading}
 style={{
 width:"100%",
 marginTop:"20px",
 padding:"14px",
-background:"#f97316",
+background: loading ? "#9ca3af" : "#f97316",
 border:"none",
 borderRadius:"10px",
 color:"white",
-fontSize:"16px"
+fontSize:"16px",
+cursor: loading ? "not-allowed" : "pointer",
+transition:"0.2s"
 }}
 >
 
-🔥 Analyze Images
+{loading ? "Analyzing..." : "🔥 Analyze Images"}
 
 </button>
 
