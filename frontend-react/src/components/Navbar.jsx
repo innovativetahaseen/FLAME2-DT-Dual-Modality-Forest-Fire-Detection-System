@@ -24,7 +24,7 @@ borderBottom:"1px solid #1e293b"
 >
 
 <h2 style={{margin:0}}>
-🔥 Forest Fire Detection System
+🔥 Dual-Modality Forest Fire Detection System
 </h2>
 
 <div style={{display:"flex",alignItems:"center",gap:"20px"}}>

@@ -30,28 +30,32 @@ localStorage.setItem("fire_history",JSON.stringify(old));
 
 };
 
-/* file handlers */
+/* RGB upload */
 
-const handleRgbFile = (e)=>{
+const handleRGB = (e)=>{
 const file = e.target.files[0];
-
 if(file){
 setRgbImage(URL.createObjectURL(file));
 }
 };
 
-const handleThermalFile = (e)=>{
-const file = e.target.files[0];
+/* Thermal upload */
 
+const handleThermal = (e)=>{
+const file = e.target.files[0];
 if(file){
 setThermalImage(URL.createObjectURL(file));
+
 }
 };
+
+/* analyze */
 
 const analyzeImage = ()=>{
 
 if(!rgbImage || !thermalImage){
 alert("Upload both RGB and Thermal images");
+
 return;
 }
 
@@ -105,7 +109,7 @@ fire: fireDetected,
 confidence
 });
 
-/* save history */
+/* history */
 
 const record = {
 
@@ -135,72 +139,61 @@ return(
 
 <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"30px",color:"white"}}>
 
+{/* LEFT SIDE */}
+
 <div>
 
 <h1>📷 Fire Detection</h1>
 
-{/* RGB + Thermal Upload */}
+{/* Upload Section */}
 
-<div
-style={{
+<div style={{
 display:"grid",
 gridTemplateColumns:"1fr 1fr",
 gap:"20px",
 marginBottom:"20px"
-}}
->
+}}>
 
-{/* RGB BLOCK */}
+{/* RGB Upload */}
 
-<div
-style={{
+<div style={{
 border:"2px dashed #475569",
 borderRadius:"12px",
 padding:"30px",
 textAlign:"center"
-}}
->
+}}>
 
-<h3>📷 RGB Image</h3>
+<h3>RGB Image</h3>
 
-<input type="file" onChange={handleRgbFile}/>
+<input type="file" onChange={handleRGB}/>
 
 {rgbImage && (
+
 <img
 src={rgbImage}
-style={{
-width:"100%",
-marginTop:"15px",
-borderRadius:"10px"
-}}
+style={{width:"100%",marginTop:"10px",borderRadius:"10px"}}
 />
 )}
 
 </div>
 
-{/* THERMAL BLOCK */}
+{/* Thermal Upload */}
 
-<div
-style={{
+<div style={{
 border:"2px dashed #475569",
 borderRadius:"12px",
 padding:"30px",
 textAlign:"center"
-}}
->
+}}>
 
-<h3>🌡 Thermal Image</h3>
+<h3>Thermal Image</h3>
 
-<input type="file" onChange={handleThermalFile}/>
+<input type="file" onChange={handleThermal}/>
 
 {thermalImage && (
 <img
 src={thermalImage}
-style={{
-width:"100%",
-marginTop:"15px",
-borderRadius:"10px"
-}}
+style={{width:"100%",marginTop:"10px",borderRadius:"10px"}}
 />
 )}
 
@@ -208,7 +201,7 @@ borderRadius:"10px"
 
 </div>
 
-{/* SENSOR FORM */}
+{/* Sensor Data */}
 
 <div style={{
 background:"#1e293b",
@@ -249,6 +242,8 @@ fontSize:"16px"
 </button>
 
 </div>
+
+{/* RIGHT SIDE */}
 
 <div>
 
