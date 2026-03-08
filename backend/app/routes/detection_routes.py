@@ -10,8 +10,8 @@ import time
 from werkzeug.utils import secure_filename
 
 detection_bp = Blueprint('detection', __name__)
-
-
+ALERT_COOLDOWN = 30  # 5 minutes cooldown
+last_alert_time = 0  # Timestamp of last alert sent
 
 # 🔥 Fire Detection API (PROTECTED)
 @detection_bp.route("/api/detect", methods=["POST"])
